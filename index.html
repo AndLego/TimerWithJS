@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/main.css" />
+    <script
+      src="https://kit.fontawesome.com/290ac6f052.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Timer</title>
+  </head>
+  <body>
+    <header>
+      <nav class="header--nav">
+        <ul class="header--list">
+          <li>
+            <button class="button header--button" title="Chronometer">
+              <i class="fa-regular fa-clock"></i>
+            </button>
+          </li>
+          <li>
+            <button class="button header--button" title="Timer">
+              <i class="fa-regular fa-hourglass"></i>
+            </button>
+          </li>
+          <li>
+            <button class="button header--button" title="Alarms">
+              <i class="fa-regular fa-bell"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="hero" id="principal">
+        <h1 class="hero--title">Chronometer</h1>
+        <div class="hero--time">
+          <p id="time">
+            <span id="hours">00</span>: <span id="minutes">00</span>:
+            <span id="seconds">00</span>,
+            <span id="miliseconds">00</span>
+          </p>
+          <p class="measure">
+            <span class="measure--hour">h</span>
+            <span class="measure--minute">min</span>
+            <span class="measure--second">seg</span>
+          </p>
+        </div>
+        <div class="hero--buttons">
+          <button
+            onclick="playPause()"
+            class="button hero--button playBtn"
+            type="button"
+          >
+            <i id="playPause" class="fa-solid fa-play"></i>
+          </button>
+          <button
+            onclick="resetChronometer()"
+            class="button hero--button"
+            type="button"
+          >
+            <i class="fa-solid fa-arrow-rotate-right"></i>
+          </button>
+        </div>
+      </section>
+    </main>
+    <script src="/index.js"></script>
+  </body>
+</html>

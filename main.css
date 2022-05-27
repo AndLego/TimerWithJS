@@ -1,0 +1,107 @@
+:root {
+  --bg-color: #121f3d;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--bg-color);
+  font-family: "Roboto", sans-serif;
+  color: aliceblue;
+}
+
+header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.header--list {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  list-style: none;
+  padding: 10px;
+}
+
+.header--button {
+  width: 200px;
+  height: 50px;
+  background-color: transparent;
+  border: 1px solid gray;
+  color: aliceblue;
+}
+
+main {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(25%);
+}
+
+.hero {
+  text-align: center;
+  width: 600px;
+  margin: auto;
+}
+
+.hero--title {
+  font-size: 2.8rem;
+}
+
+.hero--time {
+  font-size: 2.4rem;
+}
+
+.hero--time .measure {
+  font-size: 1.2rem;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.measure--hour {
+  position: absolute;
+  left: calc(40%);
+}
+
+.measure--minute {
+  position: absolute;
+  left: calc(45%);
+}
+
+.measure--second {
+  position: absolute;
+  left: calc(51.5%);
+}
+
+.hero--buttons {
+  display: flex;
+  width: 200px;
+  margin: auto;
+  justify-content: space-evenly;
+}
+
+.hero--button {
+  font-size: 1.8rem;
+  height: 40px;
+  width: 40px;
+  border-radius: 25px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.hero--button:hover {
+  background-color: #ffbe0b;
+}
+
+.fa-solid {
+  vertical-align: middle;
+}
