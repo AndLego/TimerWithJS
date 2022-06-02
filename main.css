@@ -82,7 +82,12 @@ main {
   left: calc(51.5%);
 }
 
+.button {
+  cursor: pointer;
+}
+
 .hero--buttons {
+  position: relative;
   display: flex;
   width: 200px;
   margin: auto;
@@ -95,7 +100,6 @@ main {
   width: 40px;
   border-radius: 25px;
   margin-right: 20px;
-  cursor: pointer;
 }
 
 .hero--button:hover {
@@ -104,4 +108,19 @@ main {
 
 .fa-solid {
   vertical-align: middle;
+}
+
+.timerForm {
+  position: absolute;
+  left: calc(100%);
+  top: calc(-163%);
+  display: flex;
+  flex-direction: column;
+  width: 48px;
+  height: 110px;
+  text-align: center
+}
+
+.gears-button{
+  margin-top: 24px;
 }

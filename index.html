@@ -22,12 +22,12 @@
       <nav class="header--nav">
         <ul class="header--list">
           <li>
-            <button class="button header--button" title="Chronometer">
+            <button class="button header--button" id="chronometer-button" onclick="executeChronometer()" title="Chronometer">
               <i class="fa-regular fa-clock"></i>
             </button>
           </li>
           <li>
-            <button class="button header--button" title="Timer">
+            <button class="button header--button" id="timer-button" onclick="executeTimer()" title="Timer">
               <i class="fa-regular fa-hourglass"></i>
             </button>
           </li>
@@ -60,7 +60,7 @@
             class="button hero--button playBtn"
             type="button"
           >
-            <i id="playPause" class="fa-solid fa-play"></i>
+            <i id="chron-playPause" class="fa-solid fa-play"></i>
           </button>
           <button
             onclick="resetChronometer()"
