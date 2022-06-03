@@ -64,7 +64,7 @@ main {
 .hero--time .measure {
   font-size: 1.2rem;
   position: relative;
-  margin-bottom: 40px;
+  margin-bottom: 28px;
 }
 
 .measure--hour {
@@ -90,7 +90,7 @@ main {
   position: relative;
   display: flex;
   width: 200px;
-  margin: auto;
+  margin: 18px auto 0;
   justify-content: space-evenly;
 }
 
@@ -112,15 +112,45 @@ main {
 
 .timerForm {
   position: absolute;
-  left: calc(100%);
-  top: calc(-163%);
-  display: flex;
-  flex-direction: column;
-  width: 48px;
-  height: 110px;
-  text-align: center
+  left: calc(42.6%);
+  top: calc(-34%);
+  display: grid;
+  grid-template-areas:
+    "minutes seconds btn"
+    "minInput secInput btn";
+  align-items: center;
+  align-content: center;
+  column-gap: 12px;;
 }
 
-.gears-button{
-  margin-top: 24px;
+.minutes--input {
+  grid-area: minutes;
+}
+
+#minutesInput {
+  grid-area: minInput;
+  text-align: center;
+  width: 40px;
+}
+
+.seconds--input {
+  grid-area: seconds;
+}
+
+#secondsInput {
+  grid-area: secInput;
+  text-align: center;
+  width: 40px;
+}
+
+.gears-button {
+  grid-area: btn;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

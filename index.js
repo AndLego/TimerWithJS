@@ -114,28 +114,57 @@ function executeChronometer() {
 
 // TIMER FUNCTIONS --------------------------------------------------------------------------------
 
-const timerBtns = document.getElementById("#timerBtn");
 let timerSeconds;
 let timerMinutes;
 let currentButton;
 
+function checkValue(sender) {
+  let min = sender.min;
+  let max = sender.max;
+
+  let value = parseInt(sender.value);
+  if (value > max) {
+    sender.value = max;
+  } else if (value < min) {
+    sender.value = min;
+  }
+}
+
 function setTimer() {
   event.preventDefault();
+
+  const container = document.querySelector(".title-timer");
+  container.textContent = "Timer";
 
   timerSeconds = parseInt(event.target.seconds.value);
   timerMinutes = parseInt(event.target.minutes.value);
 
   secondsSpan.textContent = formatValue(timerSeconds);
   minutesSpan.textContent = formatValue(timerMinutes);
+
+  if (timerSeconds == 0 && timerMinutes == 0) {
+    lockButtons();
+  } else {
+    unlockButtons();
+  }
 }
 
-// function unlockButtons() {
-//   console.log(timerBtns.timerBtns);
-// }
+function unlockButtons() {
+  const startBtn = document.querySelector(".startBtn");
+  startBtn.removeAttribute("disabled");
+  const stopBtn = document.querySelector(".stopBtn");
+  stopBtn.removeAttribute("disabled");
+}
+
+function lockButtons() {
+  const stopBtn = document.querySelector(".stopBtn");
+  const startBtn = document.querySelector(".startBtn");
+  stopBtn.setAttribute("disabled", "disabled");
+  startBtn.setAttribute("disabled", "disabled");
+}
 
 function startTimer() {
   currentButton = event.currentTarget;
-  console.log(currentButton)
   currentButton.disabled = true;
 
   secondsValue = timerSeconds;
@@ -143,34 +172,60 @@ function startTimer() {
 
   currentInterval = setInterval(() => {
     secondsValue -= 1;
+    timerSeconds = secondsValue
     if (secondsValue === -1) {
       secondsValue = 59;
       minutesValue -= 1;
+      timerMinutes = minutesValue
     }
     if (minutesValue === 0 && secondsValue === 0) {
-      const container = document.querySelector(".hero--time");
-      const title = document.createElement("h2");
-      title.textContent = "Riiiing";
-      container.appendChild(title);
+      const container = document.querySelector(".title-timer");
+      container.textContent = "Riiiing";
+      lockButtons()
+
 
       clearInterval(currentInterval);
     }
     minutesSpan.textContent = formatValue(minutesValue);
     secondsSpan.textContent = formatValue(secondsValue);
+    console.log(timerSeconds)
+    console.log(secondsValue)
+
+
   }, 1000);
+
+  const stopBtn = document.querySelector(".stopBtn");
+  stopBtn.removeAttribute("disabled");
 }
 
 function stopTimer() {
-  if(currentButton){
+  if (currentButton) {
     currentButton.disabled = false;
+    const stopBtn = document.querySelector(".stopBtn");
+    stopBtn.setAttribute("disabled", "disabled");
   }
 
   clearInterval(currentInterval);
 }
 
+function resetTimer() {
+  stopTimer();
+  executeTimer();
+}
+
 function executeTimer() {
   hero.innerHTML = `
-    <h1 class="hero--title">Timer</h1>
+          <form onsubmit="setTimer()" class="timerForm">           
+                  <input value="0" type="number" min="0" max="59" oninput="checkValue(this)" placeholder="0" id="minutesInput" name="minutes" > 
+                  <label for="minutesInput" class="minutes--input">Minutes</label>
+                   <input value="0" type="number" min="0" max="59" oninput="checkValue(this)" placeholder="0" id="secondsInput" name="seconds" > 
+                  <label for="secondsInput" class="seconds--input">Seconds</label>
+              <button           
+                class="button hero--button gears-button"
+                type="submit">
+                Set
+              </button>
+          </form>
           <div class="hero--time">
             <p id="time">
               <span id="hours">00</span>: <span id="minutes">00</span>:
@@ -180,38 +235,88 @@ function executeTimer() {
             <p class="measure">
               <span class="measure--hour">h</span>
               <span class="measure--minute">min</span>
-              <span class="measure--second">seg</span>
+              <span class="measure--second">sec</span>
             </p>
           </div>
-          <div class="hero--buttons">
-            <form onsubmit="setTimer()" class="timerForm">
-              <input value="0" type="number" placeholder="mins" id="minutesInput" name="minutes" > 
-              <input value="0" type="number" placeholder="secs" id="secondsInput" name="seconds" > 
-              <button           
-                class="button hero--button gears-button"
-                type="submit">
-                <i class="fa-solid fa-gears"></i>
-              </button>
-             </form>
-              
+          <h1 class="hero--title title-timer">Timer</h1>
+          <div class="hero--buttons">  
             <button
                 onclick="startTimer()"
-          
-                class="button hero--button timerBtn"
+                disabled="disabled"
+                class="button hero--button timerBtn startBtn"
                 type="button">
                 <i class="fa-solid fa-play"></i>
              </button>
 
             <button
               onclick="stopTimer()"
-          
-              class="button hero--button timerBtn"
+              disabled="disabled"
+              class="button hero--button timerBtn stopBtn"
               type="button">
               <i class="fa-solid fa-pause"></i>
             </button>
             
             <button
-              onclick="resetChronometer()"
+              onclick="resetTimer()"
+              class="button hero--button"
+              type="button">
+              <i class="fa-solid fa-arrow-rotate-right"></i>
+            </button>
+          </div>
+    `;
+  secondsSpan = document.querySelector("#seconds");
+  minutesSpan = document.querySelector("#minutes");
+}
+
+
+/////POMODORO CODE ---------------------------------------------------------------
+
+
+function executePomodoro() {
+  hero.innerHTML = `
+          <form onsubmit="setTimer()" class="timerForm">           
+                  <input value="0" type="number" min="0" max="59" oninput="checkValue(this)" placeholder="0" id="minutesInput" name="minutes" > 
+                  <label for="minutesInput" class="minutes--input">Session Length</label>
+                   <input value="0" type="number" min="0" max="59" oninput="checkValue(this)" placeholder="0" id="secondsInput" name="seconds" > 
+                  <label for="secondsInput" class="seconds--input">Break Length</label>
+              <button           
+                class="button hero--button gears-button"
+                type="submit">
+                Set
+              </button>
+          </form>
+          <div class="hero--time">
+            <p id="time">
+              <span id="hours">00</span>: <span id="minutes">00</span>:
+              <span id="seconds">00</span>,
+              <span id="miliseconds">00</span>         
+            </p>
+            <p class="measure">
+              <span class="measure--hour">h</span>
+              <span class="measure--minute">min</span>
+              <span class="measure--second">sec</span>
+            </p>
+          </div>
+          <h1 class="hero--title title-timer">Pomodoro</h1>
+          <div class="hero--buttons">  
+            <button
+                onclick="startTimer()"
+                disabled="disabled"
+                class="button hero--button timerBtn startBtn"
+                type="button">
+                <i class="fa-solid fa-play"></i>
+             </button>
+
+            <button
+              onclick="stopTimer()"
+              disabled="disabled"
+              class="button hero--button timerBtn stopBtn"
+              type="button">
+              <i class="fa-solid fa-pause"></i>
+            </button>
+            
+            <button
+              onclick="resetTimer()"
               class="button hero--button"
               type="button">
               <i class="fa-solid fa-arrow-rotate-right"></i>
