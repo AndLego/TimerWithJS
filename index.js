@@ -110,6 +110,7 @@ function executeChronometer() {
   secondsSpan = document.querySelector("#seconds");
   minutesSpan = document.querySelector("#minutes");
   hoursSpan = document.querySelector("#hours");
+  resetChronometer();
 }
 
 // TIMER FUNCTIONS --------------------------------------------------------------------------------
@@ -172,26 +173,21 @@ function startTimer() {
 
   currentInterval = setInterval(() => {
     secondsValue -= 1;
-    timerSeconds = secondsValue
+    timerSeconds = secondsValue;
     if (secondsValue === -1) {
       secondsValue = 59;
       minutesValue -= 1;
-      timerMinutes = minutesValue
+      timerMinutes = minutesValue;
     }
     if (minutesValue === 0 && secondsValue === 0) {
       const container = document.querySelector(".title-timer");
       container.textContent = "Riiiing";
-      lockButtons()
-
+      lockButtons();
 
       clearInterval(currentInterval);
     }
     minutesSpan.textContent = formatValue(minutesValue);
     secondsSpan.textContent = formatValue(secondsValue);
-    console.log(timerSeconds)
-    console.log(secondsValue)
-
-
   }, 1000);
 
   const stopBtn = document.querySelector(".stopBtn");
@@ -228,12 +224,10 @@ function executeTimer() {
           </form>
           <div class="hero--time">
             <p id="time">
-              <span id="hours">00</span>: <span id="minutes">00</span>:
-              <span id="seconds">00</span>,
-              <span id="miliseconds">00</span>         
+              <span id="minutes">00</span>:
+              <span id="seconds">00</span>       
             </p>
             <p class="measure">
-              <span class="measure--hour">h</span>
               <span class="measure--minute">min</span>
               <span class="measure--second">sec</span>
             </p>
@@ -266,33 +260,143 @@ function executeTimer() {
     `;
   secondsSpan = document.querySelector("#seconds");
   minutesSpan = document.querySelector("#minutes");
-}
 
+  resetChronometer();
+}
 
 /////POMODORO CODE ---------------------------------------------------------------
 
+let sessionValue;
+let breakValue = 5;
+
+let nextSession = sessionValue;
+let nextBreak = breakValue;
+
+function substract() {
+  if (sessionValue > 1) {
+    sessionValue -= 1;
+    sessionTag.innerHTML = sessionValue;
+  }
+}
+
+function add() {
+  if (sessionValue < 59) {
+    sessionValue += 1;
+    sessionTag.innerHTML = sessionValue;
+  }
+}
+
+function substractBreak() {
+  if (breakValue > 1) {
+    breakValue -= 1;
+    breakTag.innerHTML = breakValue;
+  }
+}
+
+function addBreak() {
+  if (breakValue < 59) {
+    breakValue += 1;
+    breakTag.innerHTML = breakValue;
+  }
+}
+
+function startPomodoro() {
+  const playBreak = document.querySelector("#playSession");
+  playBreak.removeAttribute("onclick");
+  playBreak.setAttribute("onclick", "startPomodoro()");
+  const container = document.querySelector(".title-timer");
+  container.textContent = "Session";
+
+  minutesValue = sessionValue;
+
+  currentInterval = setInterval(() => {
+    secondsValue -= 1;
+    if (secondsValue === -1) {
+      secondsValue = 59;
+      minutesValue -= 1;
+      //sessionValue = minutesValue;
+    }
+    if (minutesValue === 0 && secondsValue === 0) {
+      const container = document.querySelector(".title-timer");
+      container.textContent = "Break";
+      clearInterval(currentInterval);
+      startBreak();
+    }
+    console.log(minutesValue, minutesValue);
+    minutesSpan.textContent = formatValue(minutesValue);
+    secondsSpan.textContent = formatValue(secondsValue);
+  }, 10);
+
+  const stopBtn = document.querySelector(".stopPomodoro");
+  stopBtn.removeAttribute("disabled");
+}
+
+function startBreak() {
+  const playBreak = document.querySelector("#playSession");
+  playBreak.removeAttribute("onclick");
+  playBreak.setAttribute("onclick", "startBreak()");
+
+  minutesValue = breakValue;
+
+  currentInterval = setInterval(() => {
+    secondsValue -= 1;
+    // timerSeconds = secondsValue;
+    if (secondsValue === -1) {
+      secondsValue = 59;
+      minutesValue -= 1;
+      //  timerMinutes = minutesValue;
+    }
+    if (minutesValue === 0 && secondsValue === 0) {
+      const container = document.querySelector(".title-timer");
+      container.textContent = "Session";
+      // sessionValue = parseInt(document.querySelector("#sessionTime").innerHTML);
+      clearInterval(currentInterval);
+      startPomodoro();
+    }
+    minutesSpan.textContent = formatValue(minutesValue);
+    secondsSpan.textContent = formatValue(secondsValue);
+  }, 10);
+
+  const stopBtn = document.querySelector(".stopPomodoro");
+  stopBtn.removeAttribute("disabled");
+}
+
+function stopPomodoro() {
+  if (currentButton) {
+    currentButton.disabled = false;
+    const stopBtn = document.querySelector(".stopPomodoro");
+    stopBtn.setAttribute("disabled", "disabled");
+  }
+  clearInterval(currentInterval);
+}
+
+function resetPomodoro() {
+  stopPomodoro();
+  executePomodoro();
+}
 
 function executePomodoro() {
   hero.innerHTML = `
-          <form onsubmit="setTimer()" class="timerForm">           
-                  <input value="0" type="number" min="0" max="59" oninput="checkValue(this)" placeholder="0" id="minutesInput" name="minutes" > 
-                  <label for="minutesInput" class="minutes--input">Session Length</label>
-                   <input value="0" type="number" min="0" max="59" oninput="checkValue(this)" placeholder="0" id="secondsInput" name="seconds" > 
-                  <label for="secondsInput" class="seconds--input">Break Length</label>
-              <button           
-                class="button hero--button gears-button"
-                type="submit">
-                Set
-              </button>
-          </form>
+          <div class="pomodoroSettings">   
+            <h3 class="sessionTitle">Session Length</h3> 
+            <div class="pomodoroSession">  
+                <button onclick="substract()" id="substractSession">-</button>     
+                <p id="sessionTime">25</p> 
+                <button onclick="add()" id="addSession">+</button>     
+            </div> 
+            <h3 class="breakTitle">Break Length</h3> 
+            <div class="pomodoroBreak">  
+                <button onclick="substractBreak()" id="substractBreak">-</button>     
+                <p id="breakTime">5</p> 
+                <button onclick="addBreak()" id="addBreak">+</button>     
+            </div> 
+          </div>
           <div class="hero--time">
             <p id="time">
-              <span id="hours">00</span>: <span id="minutes">00</span>:
-              <span id="seconds">00</span>,
-              <span id="miliseconds">00</span>         
+              <span id="minutes">00</span>:
+              <span id="seconds">00</span>             
             </p>
             <p class="measure">
-              <span class="measure--hour">h</span>
               <span class="measure--minute">min</span>
               <span class="measure--second">sec</span>
             </p>
@@ -300,29 +404,32 @@ function executePomodoro() {
           <h1 class="hero--title title-timer">Pomodoro</h1>
           <div class="hero--buttons">  
             <button
-                onclick="startTimer()"
-                disabled="disabled"
-                class="button hero--button timerBtn startBtn"
+                id="playSession"
+                onclick="startPomodoro()"
+                class="button hero--button"
                 type="button">
                 <i class="fa-solid fa-play"></i>
              </button>
 
             <button
-              onclick="stopTimer()"
-              disabled="disabled"
-              class="button hero--button timerBtn stopBtn"
+              onclick="stopPomodoro()"
+              class="button hero--button stopPomodoro"
               type="button">
               <i class="fa-solid fa-pause"></i>
             </button>
             
             <button
-              onclick="resetTimer()"
+              onclick="resetPomodoro()"
               class="button hero--button"
               type="button">
               <i class="fa-solid fa-arrow-rotate-right"></i>
             </button>
           </div>
     `;
+  sessionValue = parseInt(document.querySelector("#sessionTime").innerHTML);
+  sessionTag = document.querySelector("#sessionTime");
+  breakValue = parseInt(document.querySelector("#breakTime").innerHTML);
+  breakTag = document.querySelector("#breakTime");
   secondsSpan = document.querySelector("#seconds");
   minutesSpan = document.querySelector("#minutes");
 }

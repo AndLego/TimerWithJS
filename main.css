@@ -99,7 +99,6 @@ main {
   height: 40px;
   width: 40px;
   border-radius: 25px;
-  margin-right: 20px;
 }
 
 .hero--button:hover {
@@ -112,7 +111,7 @@ main {
 
 .timerForm {
   position: absolute;
-  left: calc(42.6%);
+  left: calc(43.4%);
   top: calc(-34%);
   display: grid;
   grid-template-areas:
@@ -120,7 +119,7 @@ main {
     "minInput secInput btn";
   align-items: center;
   align-content: center;
-  column-gap: 12px;;
+  column-gap: 12px;
 }
 
 .minutes--input {
@@ -153,4 +152,33 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+/* POMODORO CSS----------------------------------------------------------------------*/
+
+.pomodoroSettings {
+  display: grid;
+  grid-template-areas:
+    "session break"
+    "sessionTime breakTime";
+  justify-items: center;
+  justify-content: space-evenly;
+}
+
+.sessionTitle {
+  grid-area: session;
+}
+
+.breakTitle {
+  grid-area: break;
+}
+
+.pomodoroSession {
+  grid-area: sessionTime;
+  display: flex;
+}
+
+.pomodoroBreak {
+  grid-area: breakTime;
+  display: flex;
 }
