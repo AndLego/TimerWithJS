@@ -267,10 +267,7 @@ function executeTimer() {
 /////POMODORO CODE ---------------------------------------------------------------
 
 let sessionValue;
-let breakValue = 5;
-
-let nextSession = sessionValue;
-let nextBreak = breakValue;
+let breakValue;
 
 function substract() {
   if (sessionValue > 1) {
@@ -314,11 +311,12 @@ function startPomodoro() {
     if (secondsValue === -1) {
       secondsValue = 59;
       minutesValue -= 1;
-      //sessionValue = minutesValue;
+      sessionValue = minutesValue;
     }
     if (minutesValue === 0 && secondsValue === 0) {
       const container = document.querySelector(".title-timer");
       container.textContent = "Break";
+      breakValue = parseInt(document.querySelector("#breakTime").innerHTML);
       clearInterval(currentInterval);
       startBreak();
     }
@@ -340,16 +338,15 @@ function startBreak() {
 
   currentInterval = setInterval(() => {
     secondsValue -= 1;
-    // timerSeconds = secondsValue;
     if (secondsValue === -1) {
       secondsValue = 59;
       minutesValue -= 1;
-      //  timerMinutes = minutesValue;
+      breakValue = minutesValue;
     }
     if (minutesValue === 0 && secondsValue === 0) {
       const container = document.querySelector(".title-timer");
       container.textContent = "Session";
-      // sessionValue = parseInt(document.querySelector("#sessionTime").innerHTML);
+      sessionValue = parseInt(document.querySelector("#sessionTime").innerHTML);
       clearInterval(currentInterval);
       startPomodoro();
     }
