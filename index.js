@@ -268,6 +268,7 @@ function executeTimer() {
 
 let sessionValue;
 let breakValue;
+let pomButton;
 
 function substract() {
   if (sessionValue > 1) {
@@ -298,6 +299,9 @@ function addBreak() {
 }
 
 function startPomodoro() {
+  pomButton = event.currentTarget;
+  pomButton.disabled = true;
+
   const playBreak = document.querySelector("#playSession");
   playBreak.removeAttribute("onclick");
   playBreak.setAttribute("onclick", "startPomodoro()");
@@ -359,8 +363,8 @@ function startBreak() {
 }
 
 function stopPomodoro() {
-  if (currentButton) {
-    currentButton.disabled = false;
+  if (pomButton) {
+    pomButton.disabled = false;
     const stopBtn = document.querySelector(".stopPomodoro");
     stopBtn.setAttribute("disabled", "disabled");
   }
