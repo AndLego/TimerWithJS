@@ -457,7 +457,7 @@ function startBreak() {
     }
     minutes.textContent = formatValue(minutesValue);
     seconds.textContent = formatValue(secondsValue);
-  }, 10);
+  }, 1000);
 }
 
 function stopPomodoro() {
