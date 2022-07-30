@@ -1,0 +1,214 @@
+:root {
+  --bg-color: #121f3d;
+  --btn: #333333;
+  --text: #ccc;
+  --green: #04fc43;
+  --yellow: #fee800;
+  --red: #ff2972;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: aliceblue;
+  height: 100vh;
+  background-image: url(https://images.pexels.com/photos/354939/pexels-photo-354939.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+#time {
+  position: relative;
+  width: 460px;
+  height: 360px;
+  padding: 16px;
+  border-radius: 8px;
+  background: rgb(26 24 24 / 56%);
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+#time .circle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#time .circle svg {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  transform: rotate(270deg);
+}
+
+#time .circle svg circle {
+  width: 100px;
+  height: 100%;
+  fill: transparent;
+  stroke: #333333;
+  stroke-width: 4;
+  transform: translate(2px, 2px);
+}
+
+#time .circle svg circle:nth-child(2) {
+  stroke: var(--clr);
+  stroke-dasharray: 300;
+}
+
+section.circle-container {
+  display: flex;
+  gap: 20px;
+}
+
+.circle-container div {
+  position: absolute;
+  text-align: center;
+  font-weight: 500;
+  font-size: 1.5em;
+  color: #fff;
+  transition: all 0.5s;
+}
+
+#time div span {
+  position: absolute;
+  transform: translateX(-50%) translateY(0px);
+  font-size: 0.35em;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+div#seconds {
+  position: absolute;
+  font-size: 1em;
+  transform: translateX(-50%) translateY(0px);
+}
+div#minutes {
+  position: absolute;
+  font-size: 1em;
+  transform: translateX(-50%) translateY(0px);
+}
+div#hours {
+  position: absolute;
+  font-size: 1em;
+  transform: translateX(-50%) translateY(0px);
+}
+
+.dots {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.dots::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 15px;
+  height: 15px;
+  background: var(--clr);
+  border-radius: 50%;
+  box-shadow: 0 0 20px var(--clr), 0 0 60px var(--clr);
+}
+
+.hero {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* NAVBAR */
+
+nav.header--list {
+  display: flex;
+  gap: 100px;
+  height: 50px;
+  align-items: center;
+}
+
+.header--button {
+  background: none;
+  border: none;
+}
+
+.header--button svg {
+  width: 40px;
+  height: 40px;
+}
+
+.btn-active {
+  box-shadow: inset 0px 0px 12px 2px var(--green);
+  border-radius: 30px;
+  padding: 8px;
+}
+
+.header--button:hover {
+  cursor: pointer;
+  box-shadow: inset 0px 0px 12px 2px var(--yellow);
+  border-radius: 30px;
+  padding: 8px;
+}
+
+/* .btn-off i {
+  color: var(--text);
+  font-size: 3rem;
+} */
+
+.hero--title {
+  letter-spacing: 4px;
+  font-size: 3.6rem;
+  color: var(--text);
+}
+
+/* BTNS */
+
+.button {
+  cursor: pointer;
+  background-color: var(--btn);
+  color: var(--text);
+  border: none;
+  box-shadow: -8px 8px 12px -6px var(--yellow);
+}
+
+.hero--buttons {
+  display: flex;
+  width: 200px;
+  bottom: -60px;
+  left: calc(20%);
+  justify-content: space-evenly;
+}
+
+.hero--button {
+  font-size: 1.8rem;
+  height: 40px;
+  width: 80px;
+  border-radius: 8px;
+}
+
+.hero--button:hover {
+  color: var(--yellow);
+}

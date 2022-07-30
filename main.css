@@ -13,9 +13,16 @@ html {
 }
 
 body {
-  background-color: var(--bg-color);
   font-family: "Roboto", sans-serif;
   color: aliceblue;
+  height: 100vh;
+  background-image: url(https://images.pexels.com/photos/1419923/pexels-photo-1419923.jpeg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 header {
@@ -182,3 +189,5 @@ input[type="number"]::-webkit-outer-spin-button {
   grid-area: breakTime;
   display: flex;
 }
+
+/* FLIP EFFECT  */

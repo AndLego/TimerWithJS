@@ -1,12 +1,21 @@
-let milisecondsSpan = document.querySelector("#miliseconds");
-let secondsSpan = document.querySelector("#seconds");
-let minutesSpan = document.querySelector("#minutes");
-let hoursSpan = document.querySelector("#hours");
-const playBtn = document.querySelector("#chron-playPause");
-const timerButton = document.querySelector("#timer-button");
-const hero = document.querySelector("#principal");
+let seconds = document.querySelector("#seconds");
+let minutes = document.querySelector("#minutes");
+let hours = document.querySelector("#hours");
 
-let miliSecondsValue = 0;
+let hh = document.getElementById("hh");
+let mm = document.getElementById("mm");
+let ss = document.getElementById("ss");
+
+let hr_dot = document.querySelector(".hr_dot");
+let min_dot = document.querySelector(".min_dot");
+let sec_dot = document.querySelector(".sec_dot");
+
+let playBtn = document.querySelector(".playBtn");
+let timerButton = document.querySelector("#timer-button");
+const hero = document.querySelector(".hero");
+
+// CHRONOMETER
+
 let secondsValue = 0;
 let minutesValue = 0;
 let hoursValue = 0;
@@ -17,36 +26,35 @@ let chronPlayBtn = true;
 
 function playPause() {
   if (chronPlayBtn === true) {
-    chronPlayBtn = false;
     startChronometer();
-    playBtn.className = "fa-solid fa-pause";
+    chronPlayBtn = false;
+    playBtn.textContent = "Pause";
   } else {
-    chronPlayBtn = true;
     stopChronometer();
-    playBtn.className = "fa-solid fa-play";
+    chronPlayBtn = true;
+    playBtn.textContent = "Play";
   }
 }
 
 function startChronometer() {
   currentInterval = setInterval(function () {
-    miliSecondsValue += 1;
-    if (miliSecondsValue === 100) {
-      miliSecondsValue = 0;
-      secondsValue += 1;
-      secondsSpan.textContent = formatValue(secondsValue);
-    } else if (secondsValue === 60) {
+    secondsValue += 1;
+    console.log(secondsValue);
+    timerEffectDash();
+
+    if (secondsValue === 60) {
       secondsValue = 0;
       minutesValue += 1;
-      secondsSpan.textContent = "00";
-      minutesSpan.textContent = formatValue(minutesValue);
+      seconds.textContent = "00";
+      minutes.textContent = formatValue(minutesValue);
     } else if (minutesValue === 60) {
       minutesValue = 0;
       hoursValue += 1;
-      minutesSpan.textContent = "00";
-      hoursSpan.textContent = formatValue(hoursValue);
+      minutes.textContent = "00";
+      hours.textContent = formatValue(hoursValue);
     }
-    milisecondsSpan.textContent = formatValue(miliSecondsValue);
-  }, 10);
+    seconds.textContent = formatValue(secondsValue);
+  }, 1000);
 }
 
 function formatValue(value) {
@@ -58,58 +66,96 @@ function stopChronometer() {
 }
 
 function resetChronometer() {
-  miliSecondsValue = 0;
   secondsValue = 0;
   minutesValue = 0;
   hoursValue = 0;
 
-  milisecondsSpan.textContent = "00";
-  secondsSpan.textContent = "00";
-  minutesSpan.textContent = "00";
-  hoursSpan.textContent = "00";
+  seconds.textContent = "00";
+  minutes.textContent = "00";
+  hours.textContent = "00";
+
+  timerEffectDash();
 
   chronPlayBtn = true;
-  playBtn.className = "fa-solid fa-play";
+  playBtn.textContent = "Start";
 
   stopChronometer();
 }
 
 function executeChronometer() {
   hero.innerHTML = `
-    <h1 class="hero--title">Chronometer</h1>
-          <div class="hero--time">
-            <p id="time">
-              <span id="hours">00</span>: <span id="minutes">00</span>:
-              <span id="seconds">00</span>,
-              <span id="miliseconds">00</span>
-            </p>
-            <p class="measure">
-              <span class="measure--hour">h</span>
-              <span class="measure--minute">min</span>
-              <span class="measure--second">seg</span>
-            </p>
-          </div>
-          <div class="hero--buttons">
-            <button
-              onclick="playPause()"
-              class="button hero--button playBtn"
-              type="button"
-            >
-              <i id="playPause" class="fa-solid fa-play"></i>
-            </button>
-            <button
-              onclick="resetChronometer()"
-              class="button hero--button"
-              type="button"
-            >
-              <i class="fa-solid fa-arrow-rotate-right"></i>
-            </button>
-          </div>
+  <h1 class="hero--title">Chronometer</h1>
+
+  <section class="circle-container">
+    <div class="circle" style="--clr: #ff2972">
+      <div class="dots hr_dot"></div>
+      <svg>
+        <circle cx="48" cy="48" r="48"></circle>
+        <circle cx="48" cy="48" r="48" id="hh"></circle>
+      </svg>
+      <div class="hours-container">
+        <div id="hours">00</div>
+        <br /><span>Hours</span>
+      </div>
+    </div>
+    <div class="circle" style="--clr: #fee800">
+      <div class="dots min_dot"></div>
+
+      <svg>
+        <circle cx="48" cy="48" r="48"></circle>
+        <circle cx="48" cy="48" r="48" id="mm"></circle>
+      </svg>
+      <div class="minutes-container">
+        <div id="minutes">00</div>
+        <br /><span>Minutes</span>
+      </div>
+    </div>
+    <div class="circle" style="--clr: #04fc43">
+      <div class="dots sec_dot"></div>
+
+      <svg>
+        <circle cx="48" cy="48" r="48"></circle>
+        <circle cx="48" cy="48" r="48" id="ss"></circle>
+      </svg>
+      <div class="seconds-container">
+        <div id="seconds">00</div>
+        <br /><span>Seconds</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="hero--buttons">
+    <button
+      onclick="playPause()"
+      class="button hero--button playBtn"
+      type="button"
+    >
+      Start
+    </button>
+    <button
+      onclick="resetChronometer()"
+      class="button hero--button"
+      type="button"
+    >
+      Stop
+    </button>
+  </div>
     `;
-  milisecondsSpan = document.querySelector("#miliseconds");
-  secondsSpan = document.querySelector("#seconds");
-  minutesSpan = document.querySelector("#minutes");
-  hoursSpan = document.querySelector("#hours");
+
+  seconds = document.querySelector("#seconds");
+  minutes = document.querySelector("#minutes");
+  hours = document.querySelector("#hours");
+
+  hh = document.getElementById("hh");
+  mm = document.getElementById("mm");
+  ss = document.getElementById("ss");
+
+  hr_dot = document.querySelector(".hr_dot");
+  min_dot = document.querySelector(".min_dot");
+  sec_dot = document.querySelector(".sec_dot");
+
+  playBtn = document.querySelector(".playBtn");
+
   resetChronometer();
 }
 
@@ -140,8 +186,8 @@ function setTimer() {
   timerSeconds = parseInt(event.target.seconds.value);
   timerMinutes = parseInt(event.target.minutes.value);
 
-  secondsSpan.textContent = formatValue(timerSeconds);
-  minutesSpan.textContent = formatValue(timerMinutes);
+  seconds.textContent = formatValue(timerSeconds);
+  minutes.textContent = formatValue(timerMinutes);
 
   if (timerSeconds == 0 && timerMinutes == 0) {
     lockButtons();
@@ -186,8 +232,8 @@ function startTimer() {
 
       clearInterval(currentInterval);
     }
-    minutesSpan.textContent = formatValue(minutesValue);
-    secondsSpan.textContent = formatValue(secondsValue);
+    minutes.textContent = formatValue(minutesValue);
+    seconds.textContent = formatValue(secondsValue);
   }, 1000);
 
   const stopBtn = document.querySelector(".stopBtn");
@@ -258,8 +304,8 @@ function executeTimer() {
             </button>
           </div>
     `;
-  secondsSpan = document.querySelector("#seconds");
-  minutesSpan = document.querySelector("#minutes");
+  seconds = document.querySelector("#seconds");
+  minutes = document.querySelector("#minutes");
 
   resetChronometer();
 }
@@ -325,8 +371,8 @@ function startPomodoro() {
       startBreak();
     }
     console.log(minutesValue, minutesValue);
-    minutesSpan.textContent = formatValue(minutesValue);
-    secondsSpan.textContent = formatValue(secondsValue);
+    minutes.textContent = formatValue(minutesValue);
+    seconds.textContent = formatValue(secondsValue);
   }, 10);
 
   const stopBtn = document.querySelector(".stopPomodoro");
@@ -354,8 +400,8 @@ function startBreak() {
       clearInterval(currentInterval);
       startPomodoro();
     }
-    minutesSpan.textContent = formatValue(minutesValue);
-    secondsSpan.textContent = formatValue(secondsValue);
+    minutes.textContent = formatValue(minutesValue);
+    seconds.textContent = formatValue(secondsValue);
   }, 10);
 
   const stopBtn = document.querySelector(".stopPomodoro");
@@ -431,6 +477,32 @@ function executePomodoro() {
   sessionTag = document.querySelector("#sessionTime");
   breakValue = parseInt(document.querySelector("#breakTime").innerHTML);
   breakTag = document.querySelector("#breakTime");
-  secondsSpan = document.querySelector("#seconds");
-  minutesSpan = document.querySelector("#minutes");
+  seconds = document.querySelector("#seconds");
+  minutes = document.querySelector("#minutes");
 }
+
+// Timer EFFECT
+
+//Startin value
+hh.style.strokeDashoffset = 300 - (300 * hoursValue) / 12;
+//12 hours
+mm.style.strokeDashoffset = 300 - (300 * minutesValue) / 60;
+//60 minutes
+ss.style.strokeDashoffset = 300 - (300 * secondsValue) / 60;
+//60 seconds
+
+const timerEffectDash = () => {
+  hh.style.strokeDashoffset = 300 - (300 * hoursValue) / 12;
+  //12 hours
+  mm.style.strokeDashoffset = 300 - (300 * minutesValue) / 60;
+  //60 minutes
+  ss.style.strokeDashoffset = 300 - (300 * secondsValue) / 60;
+  //60 seconds
+
+  hr_dot.style.transform = `rotate(${hoursValue * 30}deg)`;
+  //360 / 12 = 30
+  min_dot.style.transform = `rotate(${minutesValue * 6}deg)`;
+  //360 / 60 = 6
+  sec_dot.style.transform = `rotate(${secondsValue * 6}deg)`;
+  //360 / 60 = 6
+};

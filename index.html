@@ -10,7 +10,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/main.css" />
+    <link rel="stylesheet" href="/index.css" />
     <script
       src="https://kit.fontawesome.com/290ac6f052.js"
       crossorigin="anonymous"
@@ -18,60 +18,123 @@
     <title>Timer</title>
   </head>
   <body>
-    <header>
-      <nav class="header--nav">
-        <ul class="header--list">
-          <li>
-            <button class="button header--button" id="chronometer-button" onclick="executeChronometer()" title="Chronometer">
-              <i class="fa-regular fa-clock"></i>
-            </button>
-          </li>
-          <li>
-            <button class="button header--button" id="timer-button" onclick="executeTimer()" title="Timer">
-              <i class="fa-regular fa-hourglass"></i>
-            </button>
-          </li>
-          <li>
-            <button class="button header--button" onclick="executePomodoro()" title="Pomodoro">
-              <i class="fa-regular fa-bell"></i>
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <section class="hero" id="principal">
-        <h1 class="hero--title">Chronometer</h1>
-        <div class="hero--time">
-          <p id="time">
-            <span id="hours">00</span>: <span id="minutes">00</span>:
-            <span id="seconds">00</span>,
-            <span id="miliseconds">00</span>
-          </p>
-          <p class="measure">
-            <span class="measure--hour">h</span>
-            <span class="measure--minute">min</span>
-            <span class="measure--second">seg</span>
-          </p>
+    <main id="time">
+      <nav class="header--list">
+        <div>
+          <button
+            class="header--button btn-active"
+            id="chronometer-button"
+            onclick="executeChronometer()"
+            title="Chronometer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <g class="" transform="translate(0,0)">
+                <path
+                  d="M256 91.088c-111.453 0-202.122 88.575-202.122 197.456C53.878 397.426 144.548 486 256 486c111.453 0 202.122-88.574 202.122-197.456 0-108.881-90.67-197.455-202.122-197.455zm0 375.866c-100.942 0-183.076-80.039-183.076-178.41 0-98.37 82.134-178.41 183.076-178.41s183.076 80.04 183.076 178.41c0 98.371-82.134 178.41-183.076 178.41zm-.571-178.41l128.558 99.55A165.602 165.602 0 0 1 256 447.908c-90.467 0-164.03-71.493-164.03-159.365 0-87.681 73.266-159.055 163.447-159.352v159.352zM256 72.043a224.727 224.727 0 0 0-66.66 10.07V56.354A30.354 30.354 0 0 1 219.694 26h72.695a30.354 30.354 0 0 1 30.27 30.354v25.76A224.727 224.727 0 0 0 256 72.042zm128.939 40.71l20.117-19.748c8.797-8.642 21.272-10.463 27.878-4.083l20.403 19.748c6.594 6.38 4.761 18.558-3.988 27.2l-19.438 19.045a221.06 221.06 0 0 0-44.96-42.162zM82.435 154.51l-19.391-19.046c-8.797-8.642-10.713-20.724-4.202-26.985L78.875 89.1c6.476-6.26 18.856-4.344 27.652 4.298l20.046 19.688a221.06 221.06 0 0 0-44.138 41.425z"
+                  fill="#fff"
+                  fill-opacity="1"
+                ></path>
+              </g>
+            </svg>
+          </button>
         </div>
+        <div>
+          <button
+            class="header--button btn-off"
+            id="timer-button"
+            onclick="executeTimer()"
+            title="Timer"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <g class="" transform="translate(0,0)">
+                <path
+                  d="M104.53 28.72c-.676 0-1.356.012-2.03.03-16.186.435-31.577 6.108-44.375 15.25-34.13 24.378-50.547 75.233-18.563 118.72 25.234 34.303 14.237 79.597-11.874 104.905l13.03 13.406c32.24-31.247 45.253-86.76 13.907-129.374C28.415 116.022 42.253 78.324 69 59.22c13.374-9.554 29.767-14.01 46.28-10.75 15.853 3.126 32.335 13.31 46.907 35l-59.875 34.655 24.344 42.28c-49.898 63.943-58.988 154.445-16 229.126 56.487 98.133 181.517 131.802 279.281 75.19 97.765-56.614 131.237-182.057 74.75-280.19-42.912-74.55-125.41-111.868-205.437-100.686l-24.438-42.438-56.437 32.657c-16.916-25.592-38.054-39.714-59.47-43.938-4.813-.95-9.63-1.405-14.374-1.406zm170.126 81.124c79.9 0 144.813 64.347 144.813 144.25 0 79.9-64.913 144.844-144.814 144.844-79.9 0-144.25-64.945-144.25-144.844 0-79.9 64.35-144.25 144.25-144.25zm-9.094 25.187v88.19c-13.248 4.192-23.156 16.79-23.156 31.218 0 17.726 14.962 32.125 32.688 32.125 16.82 0 30.63-12.968 32-29.438l76.53-54.875-10.905-15.188-70.283 50.407c-4.103-6.774-10.542-11.993-18.187-14.345V135.03h-18.688zm-42.187 11.314l-16.188 9.344 14.344 24.843 16.19-9.374-14.345-24.812zm103.063 0l-14.344 24.812 16.187 9.375 14.345-24.843-16.188-9.343zm-150.125 40.22l-9.344 16.186 24.81 14.344 9.345-16.188-24.813-14.344zm98.78 53.874c7.628 0 13.438 6.375 13.438 14 0 7.626-5.81 13.437-13.436 13.437-7.627 0-14-5.81-14-13.438 0-7.626 6.372-14 14-14zm-119.437 4.5v18.687h28.656v-18.688h-28.656zm209.813 0v18.687h28.686v-18.688H365.47zM191.78 291.5l-24.81 14.313L176.312 322l24.812-14.344-9.344-16.156zm166.25 0l-9.342 16.156L373.5 322l9.344-16.188L358.03 291.5zm-136.5 36.563l-14.343 24.812 16.188 9.344 14.344-24.814-16.19-9.344zm106.75 0l-16.186 9.343 14.344 24.813 16.187-9.345-14.344-24.813zm-62.717 16.812v28.656h18.687v-28.655h-18.688z"
+                  fill="#fff"
+                  fill-opacity="1"
+                ></path>
+              </g>
+            </svg>
+          </button>
+        </div>
+        <div>
+          <button
+            class="header--button btn-off"
+            onclick="executePomodoro()"
+            title="Pomodoro"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <g class="" transform="translate(0,0)">
+                <path
+                  d="M269 24.54c-3.1.11-5.7 0-7.6.21-2.8.25-4.7.45-7.2 2.23l-1 69.32c3 1.18 6.4 2.3 9.7 2.51 4.1.3 6.8-.21 9.2-2.41zm-103.4 37.9c.1 5.95.3 11.01 1.5 14.14 2.3 5.22 7 9.88 26 13.92l22.5 4.78-19.5 11.82c-16.5 10.1-35.2 19.4-51.5 26.5 6.2.7 12.3 1.4 18.2 1.4 17.8-.1 34.6-3.9 55.3-18.1L234 106l.4-24.35c-25.5-5.62-46.5-11.68-68.8-19.21zm181.2 6.49c-19.5 6.69-34.4 10.97-56.4 14.16l.9 18.81-1.7 2.5c-6.8 10-18.4 13.3-27.9 12.7-9.5-.6-17.6-3.9-23.4-7.6l-3.2-2.1-2.2 18c-1.9 17.1-2.1 28.3-5.2 42.4 14.6-10.4 24.4-18.9 36.5-37.3l7.2-10.7 8.1 10c10.9 13 28.8 22.9 48.5 29-5.7-6.5-10.9-14.5-12-25l-1.4-14.1 13.9 4.6c20.6 6.6 26.9 6.1 33.9 3.7 2.9-.9 6.7-2.6 10.6-4.5l-80.7-27.61 27.3-8.15c14.2-4.24 20.9-9.1 24.6-13.94 1-1.5 1.9-3.14 2.6-4.87zM405.5 132l-1.8.4c-17.4 4.2-24.3 9.5-35 13.1-7.4 2.3-15.6 2.8-26.7.9.4.6 1 1.2 1.5 1.8 5 5.5 12.2 11.6 18.8 20.2l13.2 17.2-21.9-2.6c-29.1-3.5-59.4-13.9-80.3-32.9-16.3 21.4-31.5 30.4-57.2 48.6l-25.8 18.4 11.3-29.1c8.4-21.1 9.3-31.3 10.7-46.3-17.3 8.4-33.7 11.5-49.5 11.6-18.7 0-36.5-3.7-55.2-6.4-.4 0-.8.1-1.2.2-59.84 46.2-68.94 115.5-68.87 150.3.17 94.2 26.73 186.7 222.47 190C408.9 490 475.4 388 474.5 293.2c-.8-60.6-12.3-124.4-69-161.2zm-258.4 34.3c13.2-.2 26.4 4.4 28.3 12.4-92.08 41.9-91.59 97.8-105.21 156.8-11.1-56.8-7.31-122.5 55.21-163.6 5.6-3.8 13.8-5.5 21.7-5.6z"
+                  fill="#fff"
+                  fill-opacity="1"
+                ></path>
+              </g>
+            </svg>
+          </button>
+        </div>
+      </nav>
+
+      <div class="hero">
+        <h1 class="hero--title">Chronometer</h1>
+
+        <section class="circle-container">
+          <div class="circle" style="--clr: #ff2972">
+            <div class="dots hr_dot"></div>
+            <svg>
+              <circle cx="48" cy="48" r="48"></circle>
+              <circle cx="48" cy="48" r="48" id="hh"></circle>
+            </svg>
+            <div class="hours-container">
+              <div id="hours">00</div>
+              <br /><span>Hours</span>
+            </div>
+          </div>
+          <div class="circle" style="--clr: #fee800">
+            <div class="dots min_dot"></div>
+
+            <svg>
+              <circle cx="48" cy="48" r="48"></circle>
+              <circle cx="48" cy="48" r="48" id="mm"></circle>
+            </svg>
+            <div class="minutes-container">
+              <div id="minutes">00</div>
+              <br /><span>Minutes</span>
+            </div>
+          </div>
+          <div class="circle" style="--clr: #04fc43">
+            <div class="dots sec_dot"></div>
+
+            <svg>
+              <circle cx="48" cy="48" r="48"></circle>
+              <circle cx="48" cy="48" r="48" id="ss"></circle>
+            </svg>
+            <div class="seconds-container">
+              <div id="seconds">00</div>
+              <br /><span>Seconds</span>
+            </div>
+          </div>
+        </section>
+
         <div class="hero--buttons">
           <button
             onclick="playPause()"
             class="button hero--button playBtn"
             type="button"
           >
-            <i id="chron-playPause" class="fa-solid fa-play"></i>
+            Start
           </button>
           <button
             onclick="resetChronometer()"
             class="button hero--button"
             type="button"
           >
-            <i class="fa-solid fa-arrow-rotate-right"></i>
+            Stop
           </button>
         </div>
-      </section>
+      </div>
     </main>
+
     <script src="/index.js"></script>
   </body>
 </html>
